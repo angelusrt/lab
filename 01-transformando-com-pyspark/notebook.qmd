@@ -1,0 +1,73 @@
+---
+title: "Transformando com o PySpark"
+author: "Angelus Trindade"
+format:
+  html:
+    embed-resources: true
+lang: pt
+---
+
+Para esse estudo, vamos usar os dados públicos de e-commerce de uma 
+loja brasileira.
+
+```{python}
+import kagglehub
+from pathlib import Path
+
+path = Path(kagglehub.dataset_download("olistbr/brazilian-ecommerce"))
+
+customers_file = path / "olist_customers_dataset.csv"
+geolocation_file = path / "olist_geolocation_dataset.csv"
+order_items_file = path / "olist_order_items_dataset.csv"
+order_payments_file = path / "olist_order_payments_dataset.csv"
+order_review_file = path / "olist_order_reviews_dataset.csv"
+orders_file = path / "olist_orders_dataset.csv"
+products_file = path / "olist_products_dataset.csv"
+sellers_file = path / "olist_sellers_dataset.csv"
+category_name_file = path / "product_category_name_translation.csv"
+```
+
+Agora, vamos carregar o spark - para isso, precisamos de uma sessão.
+
+```{python}
+from pyspark.sql import SparkSession
+
+spark = (
+    SparkSession.builder
+    .appName("learning")
+    .master("local[*]")
+    .getOrCreate()
+)
+
+```
+
+E, finalmente, lê-mos um csv. Eu me fiz a pergunta: 
+"Qual cidade teve maior volume total de compras?".
+
+```{python}
+orders = spark.read.csv(str(orders_file), header=True, inferSchema=True)
+customers = spark.read.csv(str(customers_file), header=True, inferSchema=True)
+geolocation = spark.read.csv(str(geolocation_file), header=True, inferSchema=True)
+
+customers_with_location = customers.join(
+	geolocation, 
+	on=(customers.customer_zip_code_prefix == geolocation.geolocation_zip_code_prefix)
+)
+
+orders_with_customers_and_location = orders.join(
+	customers_with_location,
+	on="customer_id"
+)
+
+orders_with_customers_and_location.show()
+
+order_frequency = (
+	orders_with_customers_and_location
+	.groupBy("geolocation_city")
+	.count()
+	.withColumnRenamed("count", "quantidade")
+	.orderBy("quantidade", ascending=False)
+)
+
+order_frequency.show()
+```
