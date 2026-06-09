@@ -1,4 +1,9 @@
 *.html
-.venv/
 *.parquet
 *.duckdb
+*.tfvars
+*.tfstate*
+
+.venv/
+
+.terraform*
