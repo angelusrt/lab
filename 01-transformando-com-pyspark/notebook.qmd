@@ -35,7 +35,7 @@ from pyspark.sql import SparkSession
 spark = (
     SparkSession.builder
     .appName("learning")
-    .master("local[*]")
+    .master("local[4]")
     .getOrCreate()
 )
 
@@ -49,6 +49,12 @@ orders = spark.read.csv(str(orders_file), header=True, inferSchema=True)
 customers = spark.read.csv(str(customers_file), header=True, inferSchema=True)
 geolocation = spark.read.csv(str(geolocation_file), header=True, inferSchema=True)
 
+# bisuiando
+#customers.select("customer_city").show()
+
+# Eliminando "duplicatas" arbitrariamente baseado no código zip
+geolocation = geolocation.dropDuplicates(["geolocation_zip_code_prefix"])
+
 customers_with_location = customers.join(
 	geolocation, 
 	on=(customers.customer_zip_code_prefix == geolocation.geolocation_zip_code_prefix)
@@ -59,7 +65,8 @@ orders_with_customers_and_location = orders.join(
 	on="customer_id"
 )
 
-orders_with_customers_and_location.show()
+# bisuiando
+#orders_with_customers_and_location.show()
 
 order_frequency = (
 	orders_with_customers_and_location
@@ -70,4 +77,50 @@ order_frequency = (
 )
 
 order_frequency.show()
+```
+
+E se eu quiser responder a pergunta:
+"Quais as 3 principais cidades por estado em número de vendas"?
+
+```{python}
+from pyspark.sql import functions as F
+from pyspark.sql.window import Window
+
+window = (
+	Window
+	.partitionBy("geolocation_state")
+	.orderBy(F.desc("quantidade"))
+)
+
+orders_with_location = orders_with_customers_and_location[
+	["geolocation_state", "geolocation_city"]
+]
+
+orders_count = (
+	orders_with_location
+	.groupBy(["geolocation_state", "geolocation_city"])
+	.count()
+	.withColumnRenamed("count", "quantidade")
+	.orderBy("quantidade", ascending=False)
+)
+
+orders_ranked = (
+	orders_count
+	.withColumn("rank", F.dense_rank().over(window))
+	.filter("rank <= 2")
+	.drop("rank")
+)
+
+orders_ranked.show(n=40)
+```
+
+Checando DuckDB (se existir):
+
+```{python}
+import duckdb
+
+with duckdb.connect("database.duckdb") as conn:
+	res = conn.query("select * from finance.f_orders_ranked_by_state")
+
+	res.show()
 ```

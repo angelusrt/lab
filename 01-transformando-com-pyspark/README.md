@@ -26,7 +26,7 @@ Finalmente, você consegue:
 python3 -m venv .venv
 source .venv/bin/activate
 
-pip install kagglehub pyspark jupyter matplotlib plotly
+pip install kagglehub pyspark jupyter matplotlib plotly duckdb
 ```
 
 E, rodar..
