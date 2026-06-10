@@ -1,9 +1,16 @@
+airflow-sa-key.json
+airflow.cfg
+
 *.html
 *.parquet
 *.duckdb
+*.db
 *.tfvars
 *.tfstate*
+*.log
+*.generated
 
 .venv/
+__pycache__/
 
 .terraform*
