@@ -24,9 +24,13 @@ gcloud auth application-default login
 - project_id
 - region_name
 - zone_name
+- billing_account_id
+- notification_email
 - bigquery_dataset_name
 - bigquery_location
-- bigquery_account_name
+- bigquery_admin_account_name
+- bigquery_reader_account_name
+- bigquery_airflow_account_name
 
 Para rodar:
 
