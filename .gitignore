@@ -9,8 +9,10 @@ airflow.cfg
 *.tfstate*
 *.log
 *.generated
+*.gitkeep
 
 .venv/
 __pycache__/
+target/
 
 .terraform*

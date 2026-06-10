@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: d_calendar
+    description: "Date dimension table containing one row per day with useful calendar attributes for analytics."
+
+    columns:
+      - name: date_day
+        description: "Primary date key (one row per calendar day)."
+        tests:
+          - not_null
+          - unique
+
+      - name: year
+        description: "Calendar year extracted from the date."
+
+      - name: month
+        description: "Month number (1–12)."
+
+      - name: day
+        description: "Day of month (1–31)."
+
+      - name: quarter
+        description: "Calendar quarter (1–4)."
+
+      - name: day_name
+        description: "Name of the weekday (e.g., Monday)."
+
+      - name: month_name
+        description: "Name of the month (e.g., January)."
+
+      - name: week_of_year
+        description: "ISO week number of the year."
+
+      - name: day_of_week
+        description: "Numeric day of week (depends on BigQuery convention)."
+
+      - name: is_weekend
+        description: "Boolean flag indicating whether the date is Saturday or Sunday."
