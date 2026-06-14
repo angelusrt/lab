@@ -13,6 +13,8 @@ airflow.cfg
 
 .venv/
 __pycache__/
+dbt_packages/
 target/
+edr_target/
 
 .terraform*

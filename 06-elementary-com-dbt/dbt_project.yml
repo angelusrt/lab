@@ -1,0 +1,32 @@
+name: 'project2'
+version: '1.0.0'
+profile: 'project2'
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+on-run-end:
+  - "{{ elementary.upload_dbt_artifacts() }}"
+
+models:
+  project2:
+    +schema: flows
+
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table
+
+  elementary:
+    +schema: elementary
+

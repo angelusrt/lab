@@ -1,0 +1,16 @@
+project2:
+  outputs:
+    dev:
+      path: dev.duckdb
+      threads: 1
+      type: duckdb
+  target: dev
+
+elementary:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: dev.duckdb
+      threads: 1
+      schema: elementary
