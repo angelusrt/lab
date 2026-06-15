@@ -27,14 +27,13 @@ dados em 4 fases:
 - Intermediate
 - Marts
 
-Para esse caso, vamos imaginar que temos 5 fontes de dados e 2 produtos de 
+Para esse caso, vamos imaginar que temos 3 fontes de dados e 2 produtos de 
 visualização.
 
 Fontes:
 - A: Planiha
 - B: Banco de dados
 - C: Planilha
-- D: Site
 
 Paineis:
 - Painel A
