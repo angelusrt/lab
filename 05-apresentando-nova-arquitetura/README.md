@@ -66,3 +66,13 @@ Para vender essa ideia, eu utilizarei a estrutura:
 - Solução
 - Problema
 - Evidência
+
+O problema que temos atualmente é:
+- Dados não padronizados
+- Valores quantitativos errados 
+- Falta de normalização
+
+Evidência:
+- Dashboard A mostrou dado X sobre Y, quando na verdade o dado era Z
+- No mesmo dashboard, o número B ficou errado, pois um valor foi mal-agregado
+- No Dashboard B, um dado estava errado pois não foi normalizado com a fonte C
