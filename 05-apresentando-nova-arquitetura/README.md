@@ -3,6 +3,22 @@
 O propósito deste projetinho é praticar a criação de apresentações, 
 _pitches_ e diagramas.
 
+## Passos
+
+Eu comecei tentando criar um diagrama no Excalidraw onde eu 
+senti falta de componentização. Esse site me parece bom para 
+expressar ideias bem rápido, mas não para apresentações mais sérias.
+
+Tentei usar o Figma FigJam, mas possui o mesmo conceito...
+
+O próximo passo seria usar o Figma Design para desenhar um diagrama com 
+componentização e ícones SVG.
+
+Tendo usado o Figma, consegui criar um diagrama muito bonito e profissional 
+com componentização - o que facilitará os próximos designs.
+
+Agora, eu vou estudar a criação de slides com o Google Apresentações.
+
 ## Arquitetura
 
 Nossa equipe possui uma arquitetura de dados, onde possuímos algumas fontes, como:
@@ -39,13 +55,14 @@ Paineis:
 - Painel A
 - Painel B
 
-## Passos
+## Apresentação
 
-Eu comecei tentando criar um diagrama no Excalidraw onde eu 
-senti falta de componentização. Esse site me parece bom para 
-expressar ideias bem rápido, mas não para apresentações mais sérias.
+O propósito desta apresentação é demonstrar a nova arquitetura e vendê-la. 
 
-Tentei usar o Figma FigJam, mas possui o mesmo conceito...
+Vamos imaginar que a antiga arquitetura era muito próxima de um lake/swamp 
+onde você extrai e apresenta.
 
-O próximo passo seria usar o Figma Design para desenhar um diagrama com 
-componentização e ícones SVG.
+Para vender essa ideia, eu utilizarei a estrutura:
+- Solução
+- Problema
+- Evidência
