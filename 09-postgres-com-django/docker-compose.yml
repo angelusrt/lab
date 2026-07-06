@@ -1,0 +1,31 @@
+services:
+  db:
+    container_name: djanguinho-db
+    image: postgres:16
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    container_name: djanguinho-web
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - ./djanguinho/:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
