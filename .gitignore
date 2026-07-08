@@ -10,6 +10,7 @@ airflow.cfg
 *.log
 *.generated
 *.gitkeep
+*.sqlite3
 
 .venv/
 __pycache__/
