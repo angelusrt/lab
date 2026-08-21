@@ -41,9 +41,41 @@ kind version && kubectl version --client
 Criando um cluster com o kind:
 
 ```bash 
+kubectl create namespace airflow
 kind create cluster --name lab 
 kubectl cluster-info --context kind-lab 
 kubectl get nodes 
+```
+
+Baixando imagem Airflow com Helm:
+
+```bash 
+helm repo add apache-airflow https://airflow.apache.org 
+helm repo update 
+helm search repo airflow 
+```
+
+Intalando imagem no contexto 'airflow':
+
+```bash 
+helm install airflow apache-airflow/airflow \
+    --namespace airflow \
+    --set executor=CeleryExecutor \
+    --timeout 10m
+```
+
+Configurando porta do pod Airflow:
+
+```bash 
+kubectl port-forward svc/airflow-webserver 8080:8080 -n airflow 
+```
+
+Undoing all:
+
+```bash 
+helm uninstall airflow -n airflow 
+kubectl delete namespace airflow 
+kind delete cluster --name lab
 ```
 
 ## Help
@@ -68,6 +100,9 @@ kubectl apply -f deployment.yaml
 
 # shell into a running container
 kubectl exec -it <pod-name> -- bash 
+
+# Checando pods de um contexto
+kubectl get pods -n airflow
 ```
 
 Comandos comuns do helm:
