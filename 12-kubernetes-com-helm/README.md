@@ -20,6 +20,20 @@ Para conseguirmos fazer qualquer coisa com Kubernetes é necessário o cliente (
 - k3s (prod)
 - k8 (prod)
 
+Tipicamente, você possui dois arquivos YAML:
+- deployment.yaml - define como a aplicação roda (Dockerfile é citado aqui)
+- service.yaml - define como outros componentes acessam a aplicação
+
+Como usar? Assim:
+- "kubectl apply -f k8s/deployment.yaml"
+- "kubectl apply -f k8s/service.yaml"
+
+É possível ter mais arquivos, mas esse é o básico.
+
+Já, com o Helm, você consegue instalar um template de um projeto e usá-lo com um arquivo 'values.yaml' para configurar aquela infra pronta. 
+Se você quiser editar, você usaria 'helm pull <project> --untar'
+
+
 ## Build
 
 Intalando Kind e Kubectl:
