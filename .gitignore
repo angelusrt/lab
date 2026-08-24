@@ -23,3 +23,5 @@ edr_target/
 .terraform*
 
 .env
+
+values.yaml
